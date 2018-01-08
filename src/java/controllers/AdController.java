@@ -27,12 +27,12 @@ public class AdController {
         adDAL =  new AdDAL();
     }
   
-    public List<User> selectAdForUser(int id)
+    public List<User> getAdForUser(int id)
     {
         return adDAL.selectAdForUser(id);
     }
     
-    public List<Category> selectAdForCategory(int id)
+    public List<Category> getAdForCategory(int id)
     {
         return adDAL.selectAdForCategory(id);
     }

@@ -27,7 +27,7 @@ import model.User;
         return userDAL.selectAll();
     }
 
-    public List<Ad> selectAdForUser(int id)
+    public List<Ad> getAdForUser(int id)
     {
         return userDAL.selectAdForUser(id);
     }

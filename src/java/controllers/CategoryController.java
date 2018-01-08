@@ -22,7 +22,7 @@ public class CategoryController {
         categoryDAL =  new CategoryDAL();
     }
 
-    public List<Ad> selectAdForCategory(int id)
+    public List<Ad> getAdForCategory(int id)
     {
         return categoryDAL.selectAdForCategory(id);
     }
@@ -32,21 +32,21 @@ public class CategoryController {
         return categoryDAL.selectAll();
     }
     
-    public Category getUserById(int id)
+    public Category getCategoryById(int id)
     {
         return categoryDAL.selectById(id);
     }
     
-    public int insertUser(Category category)
+    public int insertCategory(Category category)
     {
         return categoryDAL.insert(category);
     }
-    public int updateUser(Category category)
+    public int updateCategory(Category category)
     {
         return categoryDAL.update(category);
     }
     
-     public int deleteUser(Category category)
+     public int deleteCategory(Category category)
     {
         return categoryDAL.delete(category);
     }
