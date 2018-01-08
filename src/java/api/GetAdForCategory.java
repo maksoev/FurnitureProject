@@ -19,11 +19,11 @@ import mappers.JsonAd;
 import mappers.JsonUser;
 import model.Ad;
 import model.User;
-  
+
 @WebServlet(name = "GetAdForCategory", urlPatterns = {"/GetAdForCategory"})
-public class GetAdForCategory {
-    
-protected void processRequest(HttpServletRequest request, HttpServletResponse response)
+public class GetAdForCategory extends HttpServlet {
+
+    protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         String ids = request.getParameter("id");

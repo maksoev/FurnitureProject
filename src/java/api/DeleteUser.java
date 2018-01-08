@@ -4,6 +4,7 @@
  * and open the template in the editor.
  */
 package api;
+
 import controllers.UserController;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -20,36 +21,33 @@ import model.User;
  * @author Konstantin
  */
 @WebServlet(name = "DeleteUser", urlPatterns = {"/DeleteUser"})
-public class DeleteUser {
-protected void processRequest(HttpServletRequest request, HttpServletResponse response)
+public class DeleteUser extends HttpServlet {
+
+    protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-       String jsonObject = request.getParameter("json");
-        
-        try (PrintWriter out = response.getWriter()) 
-        {
-           User user = JsonUser.fromJSON(jsonObject);
-           UserController  userController = new UserController();
-           int res=userController.deleteUser(user);
-           out.print(res);
+        String jsonObject = request.getParameter("json");
+
+        try (PrintWriter out = response.getWriter()) {
+            User user = JsonUser.fromJSON(jsonObject);
+            UserController userController = new UserController();
+            int res = userController.deleteUser(user);
+            out.print(res);
         }
     }
 
-    
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         processRequest(request, response);
     }
 
-    
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         processRequest(request, response);
     }
 
-    
     @Override
     public String getServletInfo() {
         return "Short description";

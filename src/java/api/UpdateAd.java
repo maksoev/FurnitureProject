@@ -4,6 +4,7 @@
  * and open the template in the editor.
  */
 package api;
+
 import controllers.AdController;
 import controllers.CategoryController;
 import java.io.IOException;
@@ -20,38 +21,34 @@ import model.Ad;
  *
  * @author Konstantin
  */
-
 @WebServlet(name = "UpdateAd", urlPatterns = {"/UpdateAd"})
-public class UpdateAd {
-protected void processRequest(HttpServletRequest request, HttpServletResponse response)
+public class UpdateAd extends HttpServlet {
+
+    protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-       String jsonObject = request.getParameter("json");
-        
-        try (PrintWriter out = response.getWriter()) 
-        {
-           Ad ad = JsonAd.fromJSON(jsonObject);
-           AdController  adController = new AdController();
-           int res=adController.updateAd(ad);
-           out.print(res);
+        String jsonObject = request.getParameter("json");
+
+        try (PrintWriter out = response.getWriter()) {
+            Ad ad = JsonAd.fromJSON(jsonObject);
+            AdController adController = new AdController();
+            int res = adController.updateAd(ad);
+            out.print(res);
         }
     }
 
-    
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         processRequest(request, response);
     }
 
-    
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         processRequest(request, response);
     }
 
-    
     @Override
     public String getServletInfo() {
         return "Short description";

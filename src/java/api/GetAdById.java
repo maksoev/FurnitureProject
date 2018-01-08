@@ -4,6 +4,7 @@
  * and open the template in the editor.
  */
 package api;
+
 import controllers.CategoryController;
 import controllers.AdController;
 import java.io.IOException;
@@ -17,34 +18,33 @@ import mappers.JsonCategory;
 import mappers.JsonAd;
 import model.Category;
 import model.Ad;
+
 /**
  *
  * @author Konstantin
  */
 @WebServlet(name = "GetAdById", urlPatterns = {"/GetAdById"})
-public class GetAdById {
-   
- protected void processRequest(HttpServletRequest request, HttpServletResponse response)
+public class GetAdById extends HttpServlet {
+
+    protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         String ids = request.getParameter("id");
-        int id =Integer.parseInt(ids);
+        int id = Integer.parseInt(ids);
         try (PrintWriter out = response.getWriter()) {
             AdController adController = new AdController();
-            Ad ad=   adController.getAdById(id);
+            Ad ad = adController.getAdById(id);
             String adJson = JsonAd.toJSON(ad);
             out.println(adJson);
         }
     }
 
-    
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         processRequest(request, response);
     }
 
-    
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {

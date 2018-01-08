@@ -4,6 +4,7 @@
  * and open the template in the editor.
  */
 package api;
+
 import controllers.UserController;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -17,11 +18,11 @@ import mappers.JsonAd;
 import mappers.JsonUser;
 import model.Ad;
 import model.User;
-  
+
 @WebServlet(name = "GetAdForUser", urlPatterns = {"/GetAdForUser"})
-public class GetAdForUser {
-    
-protected void processRequest(HttpServletRequest request, HttpServletResponse response)
+public class GetAdForUser extends HttpServlet {
+
+    protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         String ids = request.getParameter("id");
@@ -52,4 +53,3 @@ protected void processRequest(HttpServletRequest request, HttpServletResponse re
     }
 
 }
-

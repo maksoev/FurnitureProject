@@ -4,6 +4,7 @@
  * and open the template in the editor.
  */
 package api;
+
 import controllers.CategoryController;
 import controllers.UserController;
 import java.io.IOException;
@@ -17,43 +18,39 @@ import mappers.JsonCategory;
 import mappers.JsonUser;
 import model.Category;
 import model.User;
+
 /**
  *
  * @author Konstantin
  */
 @WebServlet(name = "InsertCategory", urlPatterns = {"/InsertCategory"})
-public class InsertCategory {
-    
+public class InsertCategory extends HttpServlet {
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         String jsonObject = request.getParameter("json");
-        
-        try (PrintWriter out = response.getWriter()) 
-        {
-           Category category = JsonCategory.fromJSON(jsonObject);
-           CategoryController  categoryController = new CategoryController();
-           int res=categoryController.insertCategory(category);
-           out.print(res);
+
+        try (PrintWriter out = response.getWriter()) {
+            Category category = JsonCategory.fromJSON(jsonObject);
+            CategoryController categoryController = new CategoryController();
+            int res = categoryController.insertCategory(category);
+            out.print(res);
         }
     }
 
-  
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         processRequest(request, response);
     }
 
-   
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         processRequest(request, response);
     }
 
-   
     @Override
     public String getServletInfo() {
         return "Short description";

@@ -4,6 +4,7 @@
  * and open the template in the editor.
  */
 package api;
+
 import controllers.AdController;
 import controllers.CategoryController;
 import java.io.IOException;
@@ -17,42 +18,39 @@ import mappers.JsonAd;
 import mappers.JsonCategory;
 import model.Ad;
 import model.Category;
+
 /**
  *
  * @author Konstantin
  */
 @WebServlet(name = "DeleteAd", urlPatterns = {"/DeleteAd"})
-public class DeleteAd {
-    
+public class DeleteAd extends HttpServlet {
+
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-       String jsonObject = request.getParameter("json");
-        
-        try (PrintWriter out = response.getWriter()) 
-        {
-           Ad ad = JsonAd.fromJSON(jsonObject);
-           AdController  adController = new AdController();
-           int res=adController.deleteAd(ad);
-           out.print(res);
+        String jsonObject = request.getParameter("json");
+
+        try (PrintWriter out = response.getWriter()) {
+            Ad ad = JsonAd.fromJSON(jsonObject);
+            AdController adController = new AdController();
+            int res = adController.deleteAd(ad);
+            out.print(res);
         }
     }
 
-    
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         processRequest(request, response);
     }
 
-    
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         processRequest(request, response);
     }
 
-    
     @Override
     public String getServletInfo() {
         return "Short description";

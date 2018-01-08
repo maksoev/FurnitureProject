@@ -4,6 +4,7 @@
  * and open the template in the editor.
  */
 package api;
+
 import controllers.CategoryController;
 import controllers.AdController;
 import java.io.IOException;
@@ -17,46 +18,42 @@ import mappers.JsonCategory;
 import mappers.JsonAd;
 import model.Category;
 import model.Ad;
+
 /**
  *
  * @author Konstantin
  */
 @WebServlet(name = "InsertAd", urlPatterns = {"/InsertAd"})
-public class InsertAd {
-    
-protected void processRequest(HttpServletRequest request, HttpServletResponse response)
+public class InsertAd extends HttpServlet {
+
+    protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         String jsonObject = request.getParameter("json");
-        
-        try (PrintWriter out = response.getWriter()) 
-        {
-           Ad ad = JsonAd.fromJSON(jsonObject);
-           AdController  adController = new AdController();
-           int res=adController.insertAd(ad);
-           out.print(res);
+
+        try (PrintWriter out = response.getWriter()) {
+            Ad ad = JsonAd.fromJSON(jsonObject);
+            AdController adController = new AdController();
+            int res = adController.insertAd(ad);
+            out.print(res);
         }
     }
 
-  
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         processRequest(request, response);
     }
 
-   
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         processRequest(request, response);
     }
 
-   
     @Override
     public String getServletInfo() {
         return "Short description";
     }
 
 }
-
