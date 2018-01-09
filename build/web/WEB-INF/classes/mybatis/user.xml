@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8" ?>  
+<!DOCTYPE mapper 
+   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">  
+    
+<mapper namespace="user">
+    <resultMap id="userResult" type ="model.User">
+        <id property="id" column="id" />
+        <result property="name" column="name" />
+        <result property="login" column="login" />
+        <result property="password" column="password" />
+        <result property="cellphone" column="cellphone" />
+        <result property="email" column="email" />
+        <result property="root" column="root" />
+        <collection property="ad" javaType="List" ofType="model.Vacancy" column="id" select="selectAdForUser"/>
+    </resultMap>  
+    
+    
+    <select id="selectAdForUser" parameterType="int" resultMap="ad.adResult">  
+        select *
+        from ad join user on user.id = ad.user_id
+        join category on category.id = user.category_id
+        join user on user_id = ad.user_id
+        WHERE vacancy.user_id = #{id}
+    </select>
+  
+    <select id="selectById" parameterType="int" resultMap="userResult">  
+        select * from user where ID = #{id}
+    </select>
+    
+    <select id="selectAll"  resultMap="userResult">  
+        select * from user 
+    </select>
+    
+    <delete id = "delete" parameterType = "model.User"> 
+        DELETE from user WHERE ID = #{id}; 
+    </delete> 
+
+    <insert id = "insert" parameterType = "model.User"> 
+        INSERT INTO user (id, name ,login, password, cellphone, email, root) 
+        VALUES (#{id}, #{name}, #{login}, #{password}, #{cellphone}, #{email}, #{root});     
+    </insert> 
+
+    <update id = "update" parameterType = "model.User"> 
+        UPDATE user SET 
+        name= #{name},    
+        login= #{login}, 
+        password = #{password},
+        cellphone = #{cellphone},
+        email = #{email},
+        root = #{root}
+        WHERE ID = #{id}; 
+    </update>    
+</mapper>

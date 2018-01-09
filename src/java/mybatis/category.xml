@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8" ?>  
+<!DOCTYPE mapper 
+   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">  
+    
+<mapper namespace="category">
+    <resultMap id="categoryResult" type ="model.Category">
+        <id property="id" column="id" />
+        <result property="name" column="name" />
+        <collection property="ad" javaType="List" ofType="model.Ad" column="id" select="selectAdForCategory"/>
+    </resultMap>  
+    
+    <select id="selectAdForCategory" parameterType="int" resultMap="ad.adResult">  
+        select *
+        from ad join user on user.id = ad.user_id
+        join category on category.id = user.category_id
+        join user on user_id = ad.user_id
+        WHERE vacancy.category_id = #{id}
+    </select>
+
+    <select id="selectById" parameterType="int" resultMap="categoryResult">  
+        SELECT * FROM category WHERE id = #{id}
+    </select>
+    
+    <select id="selectAll" resultMap="categoryResult">  
+        SELECT * FROM category 
+    </select>
+    
+    <delete id = "delete" parameterType = "model.Category"> 
+        DELETE FROM category WHERE id = #{id}; 
+    </delete> 
+
+    <insert id = "insert" parameterType = "model.Category"> 
+        INSERT INTO category (id, name) 
+        VALUES (#{id}, #{ name});     
+    </insert> 
+
+    <update id = "update" parameterType = "model.Category"> 
+        UPDATE category SET 
+        name= #{name} 
+        WHERE ID = #{id}; 
+    </update>    
+</mapper>

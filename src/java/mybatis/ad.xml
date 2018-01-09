@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8" ?>  
+<!DOCTYPE mapper 
+   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">  
+    
+<mapper namespace="ad">
+    <resultMap id="adResult" type ="model.Ad">
+        <result property="id" column="id" />
+        <result property="name" column="name" />
+        <result property="description" column="description" />
+        <result property="price" column="price" />
+        <result property="datepost" column="datepost" />
+        <result property="image" column="image" />
+        
+        <association property="user" column="user_id" javaType="model.User">
+            <id property="id" column="id" />
+            <result property="name" column="user_name" />
+            <result property="login" column="login" />
+            <result property="password" column="password" />
+            <result property="cellphone" column="cellphone" />
+            <result property="email" column="email" />
+            <result property="root" column="root" />
+        </association>
+        
+        <association property="category" column="category_id" javaType="model.Category">
+            <id property="id" column="category_id" />
+            <result property="name" column="category_name" />
+        </association>
+        
+    </resultMap>  
+    
+    
+     <select id="selectAdForUser" resultMap="adResult">  
+        select * from user JOIN ad ON user.id = #{ad.user_id} 
+    </select>
+    
+    <select id="selectAdForCategory" resultMap="adResult">  
+        select * from category JOIN ad ON category.id = #{ad.category_ad}
+    </select>
+  
+    <select id="selectById" parameterType="int" resultMap="adResult">  
+        select * from ad where ID = #{id}
+    </select>
+    
+    <select id="selectAll"  resultMap="adResult">  
+        select * from ad 
+    </select>
+    
+    <delete id = "delete" parameterType = "model.Ad"> 
+        DELETE from ad WHERE ID = #{id}; 
+    </delete> 
+    <insert id = "insert" parameterType = "model.Ad"> 
+        INSERT INTO ad (id , name ,description, price, datepost, image, user_id, category_id) 
+        VALUES (#{id}, #{name}, #{description}, #{price}, #{datepost}, #{image}, #{user_id}, #{category_id});     
+    </insert> 
+
+    <update id = "update" parameterType = "model.Ad"> 
+        UPDATE ad SET 
+        name= #{name},    
+        description= #{description}, 
+        price = #{price},
+        datepost = #{datepost},
+        image = #{image},
+        user_id = #{user_id},
+        category_id = #{category_id} 
+        WHERE ID = #{id}; 
+    </update>    
+</mapper>
