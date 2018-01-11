@@ -5,31 +5,32 @@
     
 <mapper namespace="user">
     <resultMap id="userResult" type ="model.User">
-        <id property="id" column="id" />
+        <result property="id" column="id" />
         <result property="name" column="name" />
         <result property="login" column="login" />
         <result property="password" column="password" />
         <result property="cellphone" column="cellphone" />
         <result property="email" column="email" />
         <result property="root" column="root" />
-        <collection property="ad" javaType="List" ofType="model.Vacancy" column="id" select="selectAdForUser"/>
+        <collection property="ad" javaType="List" ofType="model.Ad" column="user_id" select="selectAdForUser"/>     
     </resultMap>  
     
     
-    <select id="selectAdForUser" parameterType="int" resultMap="ad.adResult">  
-        select *
-        from ad join user on user.id = ad.user_id
-        join category on category.id = user.category_id
-        join user on user_id = ad.user_id
-        WHERE vacancy.user_id = #{id}
-    </select>
+   
   
     <select id="selectById" parameterType="int" resultMap="userResult">  
-        select * from user where ID = #{id}
+        SELECT * From user where ID = #{id}
     </select>
     
     <select id="selectAll"  resultMap="userResult">  
-        select * from user 
+        SELECT * FROM user 
+    </select>
+    
+     <select id="selectAdForUser" parameterType="int" resultMap="ad.adResult">  
+        SELECT *
+        from ad join user on user.id = ad.user_id
+        join category on category.id = ad.category_id
+        WHERE ad.user_id = #{id}
     </select>
     
     <delete id = "delete" parameterType = "model.User"> 

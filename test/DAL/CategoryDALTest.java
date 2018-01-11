@@ -48,11 +48,8 @@ public class CategoryDALTest {
         System.out.println("selectAdForCategory");
         int id = 0;
         CategoryDAL instance = new CategoryDAL();
-        List<Ad> expResult = null;
         List<Ad> result = instance.selectAdForCategory(id);
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        assertTrue(result != null);
     }
 
     /**
@@ -62,11 +59,8 @@ public class CategoryDALTest {
     public void testSelectAll() {
         System.out.println("selectAll");
         CategoryDAL instance = new CategoryDAL();
-        List<Category> expResult = null;
         List<Category> result = instance.selectAll();
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        assertTrue(result != null && result.size() > 0);
     }
 
     /**

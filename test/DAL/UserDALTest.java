@@ -29,7 +29,7 @@ public class UserDALTest {
    
     @Test
     public void testSelectAdForUser() {
-        System.out.println("selectAdForUser");
+        System.out.println("UserDal selectAdForUser");
         UserDAL instance = new UserDAL();
         List<Ad> result = instance.selectAdForUser(100);
         assertTrue(result != null);
@@ -38,7 +38,7 @@ public class UserDALTest {
    
     @Test
     public void testSelectById() {
-        System.out.println("selectById");
+        System.out.println("UserDal selectById");
         int id = 1;
         UserDAL instance = new UserDAL();
         User result = instance.selectById(id);

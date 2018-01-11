@@ -56,7 +56,7 @@ public class AdTest {
         assertEquals(ad.getCity(), "omsk");
         assertEquals(ad.getDatepost(), date);
         assertEquals(ad.getUser_id(), 2);
-         assertEquals(ad.getCategory_id(), 5);
+        assertEquals(ad.getCategory_id(), 5);
     
     }
 

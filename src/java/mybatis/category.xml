@@ -7,15 +7,14 @@
     <resultMap id="categoryResult" type ="model.Category">
         <id property="id" column="id" />
         <result property="name" column="name" />
-        <collection property="ad" javaType="List" ofType="model.Ad" column="id" select="selectAdForCategory"/>
+        <collection property="ad" javaType="List" ofType="model.Ad" column="category_id" select="selectAdForCategory"/>
     </resultMap>  
     
     <select id="selectAdForCategory" parameterType="int" resultMap="ad.adResult">  
-        select *
+        SELECT *
         from ad join user on user.id = ad.user_id
-        join category on category.id = user.category_id
-        join user on user_id = ad.user_id
-        WHERE vacancy.category_id = #{id}
+        join category on category.id = category_id
+        WHERE ad.category_id = #{id}
     </select>
 
     <select id="selectById" parameterType="int" resultMap="categoryResult">  
