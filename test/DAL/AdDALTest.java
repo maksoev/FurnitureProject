@@ -84,10 +84,8 @@ public class AdDALTest {
     @Test
     public void testInsert() {
         System.out.println("insert");
-        
         Date date = new Date(2018, 1, 6);
         Ad ad = new Ad(21, "Продаю диван", "asdfghjkl", 135000, "omsk", date, null, 2,5);
-        
         AdDAL instance = new AdDAL();
         int expResult = 1;
         int result = instance.insert(ad);
@@ -100,9 +98,9 @@ public class AdDALTest {
     @Test
     public void testUpdate() {
         System.out.println("update");
-        Date date = new Date(2018, 1, 6);
-        Ad ad = new Ad(30, "Продаю диван", "asdfghjkl", 135000, "omsk", date, null, 2,5);
-         AdDAL instance = new AdDAL();
+        Date date = new Date(2018, 2, 8);
+        Ad ad = new Ad(21, "название", "описание", 1350, "city", date, null, 1,4);
+        AdDAL instance = new AdDAL();
         int expResult = 1;
         int result = instance.update(ad);
         assertEquals(expResult, result);
@@ -114,7 +112,8 @@ public class AdDALTest {
     @Test
     public void testDelete() {
         System.out.println("delete");
-        Ad ad = new Ad(30, null, null, null, null, null, null, null,null);
+        Date date = new Date(2018, 1, 6);
+        Ad ad = new Ad(21, "название", "описание", 1350, "city", date, null, 1,4);
         AdDAL instance = new AdDAL();
         int expResult = 1;
         int result = instance.delete(ad);

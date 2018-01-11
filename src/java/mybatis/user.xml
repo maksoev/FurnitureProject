@@ -28,8 +28,7 @@
     
      <select id="selectAdForUser" parameterType="int" resultMap="ad.adResult">  
         SELECT *
-        from ad join user on user.id = ad.user_id
-        join category on category.id = ad.category_id
+        from ad
         WHERE ad.user_id = #{id}
     </select>
     

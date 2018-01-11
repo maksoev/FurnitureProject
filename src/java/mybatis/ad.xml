@@ -5,15 +5,16 @@
     
 <mapper namespace="ad">
     <resultMap id="adResult" type ="model.Ad">
-        <result property="id" column="id" />
+        <id property="id" column="id" />
         <result property="name" column="name" />
         <result property="description" column="description" />
         <result property="price" column="price" />
+        <result property="city" column="city" />
         <result property="datepost" column="datepost" />
         <result property="image" column="image" />
         
         <association property="user" column="user_id" javaType="model.User">
-            <id property="id" column="id" />
+            <id property="id" column="user_id" />
             <result property="name" column="user_name" />
             <result property="login" column="login" />
             <result property="password" column="password" />
@@ -30,28 +31,28 @@
     </resultMap>  
     
     
-     <select id="selectAdForUser" resultMap="adResult">  
+    <select id="selectAdForUser" resultMap="adResult">  
         select * from user JOIN ad ON user.id = #{ad.user_id} 
     </select>
-    
+ 
     <select id="selectAdForCategory" resultMap="adResult">  
-        select * from category JOIN ad ON category.id = #{ad.category_ad}
+        select * from category JOIN ad ON category.id = #{ad.category_id}
     </select>
   
     <select id="selectById" parameterType="int" resultMap="adResult">  
-        select * from ad where ID = #{id}
+        SELECT * from ad where id = #{id}
     </select>
     
     <select id="selectAll"  resultMap="adResult">  
-        select * from ad 
+        SELECT * FROM ad 
     </select>
     
     <delete id = "delete" parameterType = "model.Ad"> 
         DELETE from ad WHERE ID = #{id}; 
     </delete> 
     <insert id = "insert" parameterType = "model.Ad"> 
-        INSERT INTO ad (id , name ,description, price, datepost, image, user_id, category_id) 
-        VALUES (#{id}, #{name}, #{description}, #{price}, #{datepost}, #{image}, #{user_id}, #{category_id});     
+        INSERT INTO ad (id , name ,description, price, city, datepost, image, user_id, category_id) 
+        VALUES (#{id}, #{name}, #{description}, #{price}, #{city}, #{datepost}, #{image}, #{user_id}, #{category_id});     
     </insert> 
 
     <update id = "update" parameterType = "model.Ad"> 
@@ -59,6 +60,7 @@
         name= #{name},    
         description= #{description}, 
         price = #{price},
+        city = #{city},
         datepost = #{datepost},
         image = #{image},
         user_id = #{user_id},
