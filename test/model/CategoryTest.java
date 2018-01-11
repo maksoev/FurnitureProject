@@ -49,9 +49,9 @@ public class CategoryTest {
 
         Date date = new java.sql.Date(2017, 1, 6);
         User user = new User(1, "pavel", "maksoev", "12345", "555555", "maksoev@gmail.com", "admin");
-        Ad ad1 = new Ad(1, "Продаю диван", "asdfghjkl", 10000, "omsk", date, null, user);
-        Ad ad2 = new Ad(2, "Продаю кровать", "Описание", 13500, "moscow", date, null, user);
-        Ad ad3 = new Ad(3, "Продаю гараж", "Текст", 135000, "isilkul", date, null, user);
+        Ad ad1 = new Ad(1, "Продаю диван", "asdfghjkl", 10000, "omsk", date, null, 2,3);
+        Ad ad2 = new Ad(2, "Продаю кровать", "Описание", 13500, "moscow", date, null, 2,3);
+        Ad ad3 = new Ad(3, "Продаю гараж", "Текст", 135000, "isilkul", date, null, 2,3);
 
         ArrayList<Ad> adArrayList = new ArrayList<>();
         adArrayList.add(ad1);
@@ -67,31 +67,5 @@ public class CategoryTest {
         assertTrue(category.getAd().containsAll(adArrayList));
         
     }
-    
-    @Test
-    public void TestEquals(){
-        System.out.println("test equals");
-        
-        Date date = new java.sql.Date(2017, 1, 6);
-        User user = new User(1, "pavel", "maksoev", "12345", "555555", "maksoev@gmail.com", "admin");
-        Ad ad1 = new Ad(1, "Продаю диван", "asdfghjkl", 10000, "omsk", date, null, user);
-        Ad ad2 = new Ad(2, "Продаю кровать", "Описание", 13500, "moscow", date, null, user);
-        Ad ad3 = new Ad(3, "Продаю гараж", "Текст", 135000, "isilkul", date, null, user);
-
-        ArrayList<Ad> adArrayList1 = new ArrayList<>();
-        adArrayList1.add(ad2);
-        adArrayList1.add(ad3);
-        adArrayList1.add(ad1);
-
-        ArrayList<Ad> adArrayList2 = new ArrayList<>();
-        adArrayList2.add(ad3);
-        adArrayList2.add(ad2);
-        adArrayList2.add(ad1);
-        
-        Category category1 = new  Category(1, "Кровати", adArrayList1);
-        Category category2 = new Category(1, "Кровати", adArrayList2);
-        
-        assertTrue(category1.equals(category2));
-        
-    }
 }
+   

@@ -21,12 +21,13 @@ public class Ad {
     private String city;
     private Date datepost;
     private byte[] image;
-    private User user;
+    private int user_id;
+    private int category_id;
     
     public Ad() {
     }
 
-    public Ad(int id, String name, String description, int price, String city, Date datepost, byte[] image, User user) {
+    public Ad(int id, String name, String description, int price, String city, Date datepost, byte[] image, int user_id, int category_id) {
         this.id = id;
         this.name = name;
         this.description = description;
@@ -34,7 +35,9 @@ public class Ad {
         this.city = city;
         this.datepost = datepost;
         this.image = image;
-        this.user = user;
+        this.user_id = user_id;
+        this.category_id = category_id;
+        
     }
 
     public int getId() {
@@ -65,8 +68,12 @@ public class Ad {
         return image;
     }
 
-    public User getUser() {
-        return user;
+    public int getUser_id() {
+        return user_id;
+    }
+
+    public int getCategory_id() {
+        return category_id;
     }
 
     public void setId(int id) {
@@ -97,62 +104,17 @@ public class Ad {
         this.image = image;
     }
 
-    public void setUser(User user) {
-        this.user = user;
+    public void setUser_id(int user_id) {
+        this.user_id = user_id;
     }
 
-    @Override
-    public int hashCode() {
-        int hash = 5;
-        hash = 71 * hash + this.id;
-        hash = 71 * hash + Objects.hashCode(this.name);
-        hash = 71 * hash + Objects.hashCode(this.user);
-        return hash;
-    }
-
-    @Override
-    public boolean equals(Object obj) {
-        if (this == obj) {
-            return true;
-        }
-        if (obj == null) {
-            return false;
-        }
-        if (getClass() != obj.getClass()) {
-            return false;
-        }
-        final Ad other = (Ad) obj;
-        if (this.id != other.id) {
-            return false;
-        }
-        if (this.price != other.price) {
-            return false;
-        }
-        if (!Objects.equals(this.name, other.name)) {
-            return false;
-        }
-        if (!Objects.equals(this.description, other.description)) {
-            return false;
-        }
-        if (!Objects.equals(this.city, other.city)) {
-            return false;
-        }
-        if (!Objects.equals(this.datepost, other.datepost)) {
-            return false;
-        }
-        if (!Arrays.equals(this.image, other.image)) {
-            return false;
-        }
-        if (!Objects.equals(this.user, other.user)) {
-            return false;
-        }
-        return true;
+    public void setCategory_id(int category_id) {
+        this.category_id = category_id;
     }
 
     @Override
     public String toString() {
-        return "Ad{" + "id=" + id + ", name=" + name + ", description=" + description + ", price=" + price + ", city=" + city + ", datepost=" + datepost + ", image=" + image + ", user=" + user + '}';
+        return "Ad{" + "id=" + id + ", name=" + name + ", description=" + description + ", price=" + price + ", city=" + city + ", datepost=" + datepost + ", image=" + image + ", user_id=" + user_id + ", category_id=" + category_id + '}';
     }
-     
-    
+
 }

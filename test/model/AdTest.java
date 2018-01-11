@@ -47,57 +47,20 @@ public class AdTest {
 
         Date date = new Date(2018, 1, 6);
         User user = new User(1, "pavel", "maksoev", "12345", "555555", "maksoev@gmail.com", "admin");
-        Ad ad = new Ad(1, "Продаю диван", "asdfghjkl", 135000, "omsk", date, null, user);
+        Ad ad = new Ad(25, "Продаю диван", "asdfghjkl", 135000, "omsk", date, null, 2,5);
 
-        assertEquals(ad.getId(), 1);
+        assertEquals(ad.getId(), 25);
         assertEquals(ad.getName(), "Продаю диван");
         assertEquals(ad.getDescription(), "asdfghjkl");
         assertEquals(ad.getPrice(), 135000);
         assertEquals(ad.getCity(), "omsk");
         assertEquals(ad.getDatepost(), date);
-        assertEquals(ad.getUser(), user);
+        assertEquals(ad.getUser_id(), 2);
+         assertEquals(ad.getCategory_id(), 5);
     
     }
-    
-    @Test
-    public void testEquals(){
-        Date date1 = new Date(2018, 1, 6);
-        Date date2 = new Date(2018, 1, 8);
-        User user1 = new User(1, "pavel", "maksoev", "12345", "555555", "maksoev@gmail.com", "admin");
-        User user2 = new User(2, "pavel2", "maksoev2", "54321", "000000", "gmail.com", "user");
-        
-        Ad ad1 = new Ad(1, "Продаю диван", "asdfghjkl", 135000, "omsk", date1, null, user1);
-        Ad ad2 = new Ad(1, "Продаю диван", "asdfghjkl", 135000, "omsk", date1, null, user1);
-        assertEquals(ad1, ad2);
-        
-        ad1 = new Ad(1, "Продаю диван", "asdfghjkl", 135000, "omsk", date1, null, user1);
-        ad2 = new Ad(2, "Продаю диван", "asdfghjkl", 135000, "omsk", date1, null, user1);
-        assertFalse(ad1.equals(ad2));
-        
-        ad1 = new Ad(1, "Продаю диван", "asdfghjkl", 135000, "omsk", date1, null, user1);
-        ad2 = new Ad(1, "Продаю кровать", "asdfghjkl", 135000, "omsk", date1, null, user1);
-        assertFalse(ad1.equals(ad2));
-        
-        ad1 = new Ad(1, "Продаю диван", "asdfghjkl", 135000, "omsk", date1, null, user1);
-        ad2 = new Ad(1, "Продаю диван", "описание", 135000, "omsk", date1, null, user1);
-        assertFalse(ad1.equals(ad2));
-        
-        ad1 = new Ad(1, "Продаю диван", "asdfghjkl", 135000, "omsk", date1, null, user1);
-        ad2 = new Ad(1, "Продаю диван", "asdfghjkl", 13500, "omsk", date1, null, user1);
-        assertFalse(ad1.equals(ad2));
-        
-        ad1 = new Ad(1, "Продаю диван", "asdfghjkl", 135000, "omsk", date1, null, user1);
-        ad2 = new Ad(1, "Продаю диван", "asdfghjkl", 135000, "moskow", date1, null, user1);
-        assertFalse(ad1.equals(ad2));
-        
-        ad1 = new Ad(1, "Продаю диван", "asdfghjkl", 135000, "omsk", date1, null, user1);
-        ad2 = new Ad(1, "Продаю диван", "asdfghjkl", 135000, "omsk", date2, null, user1);
-        assertFalse(ad1.equals(ad2));
-        
-        ad1 = new Ad(1, "Продаю диван", "asdfghjkl", 135000, "omsk", date1, null, user1);
-        ad2 = new Ad(1, "Продаю диван", "asdfghjkl", 135000, "omsk", date1, null, user2);
-        assertFalse(ad1.equals(ad2));
+
         
     }
-}
+
 
