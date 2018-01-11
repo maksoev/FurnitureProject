@@ -14,7 +14,7 @@
         <result property="image" column="image" />
         
         <association property="user" column="user_id" javaType="model.User">
-            <id property="id" column="id_user" />
+            <id property="id" column="user_id" />
             <result property="name" column="user_name" />
             <result property="login" column="login" />
             <result property="password" column="password" />
@@ -24,7 +24,7 @@
         </association>
         
         <association property="category" column="category_id" javaType="model.Category">
-            <id property="id" column="id_category" />
+            <id property="id" column="category_id" />
             <result property="name" column="category_name" />
         </association>
         
@@ -40,8 +40,7 @@
     </select>
   
     <select id="selectById" parameterType="int" resultMap="adResult">  
-        SELECT * FROM ad 
-        WHERE id = #{id}
+        SELECT * from ad where id = #{id}
     </select>
     
     <select id="selectAll"  resultMap="adResult">  
