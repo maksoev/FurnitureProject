@@ -10,6 +10,10 @@ import java.util.List;
 import model.Ad;
 import model.Category;
 import model.User;
+import org.junit.After;
+import org.junit.AfterClass;
+import org.junit.Before;
+import org.junit.BeforeClass;
 import org.junit.Test;
 import static org.junit.Assert.*;
 
@@ -24,7 +28,32 @@ public class AdDALTest {
     
     
 
-    
+    @Test
+    public void testSelectAdForUser() {
+        System.out.println("selectAdForUser");
+        int id = 0;
+        AdDAL instance = new AdDAL();
+        List<User> expResult = null;
+        List<User> result = instance.selectAdForUser(id);
+        assertEquals(expResult, result);
+        // TODO review the generated test code and remove the default call to fail.
+        fail("The test case is a prototype.");
+    }
+
+    /**
+     * Test of selectAdForCategory method, of class AdDAL.
+     */
+    @Test
+    public void testSelectAdForCategory() {
+        System.out.println("selectAdForCategory");
+        int id = 0;
+        AdDAL instance = new AdDAL();
+        List<Category> expResult = null;
+        List<Category> result = instance.selectAdForCategory(id);
+        assertEquals(expResult, result);
+        // TODO review the generated test code and remove the default call to fail.
+        fail("The test case is a prototype.");
+    }
 
     /**
      * Test of selectAll method, of class AdDAL.
@@ -43,7 +72,7 @@ public class AdDALTest {
     @Test
     public void testSelectById() {
         System.out.println("selectById");
-        int id = 2;
+        int id = 1;
         AdDAL instance = new AdDAL();
         Ad result = instance.selectById(id);
         assertTrue(result != null);
@@ -56,30 +85,11 @@ public class AdDALTest {
     public void testInsert() {
         System.out.println("insert");
         Date date = new Date(2018, 1, 6);
-        Ad ad = new Ad(200, "Продаю диван", "asdfghjkl", 135000, "omsk", date, null, 2,5);
+        Ad ad = new Ad(21, "Продаю диван", "asdfghjkl", 135000, "omsk", date, null, 2,5);
         AdDAL instance = new AdDAL();
         int expResult = 1;
         int result = instance.insert(ad);
         assertEquals(expResult, result);
-    }
-    
-    @Test
-    public void testSelectAdForUser() {
-        System.out.println("selectAdForUser");
-        AdDAL instance = new AdDAL();
-        List<User> result = instance.selectAdForUser(200);
-        assertTrue(result != null);
-    }
-
-    /**
-     * Test of selectAdForCategory method, of class AdDAL.
-     */
-    @Test
-    public void testSelectAdForCategory() {
-        System.out.println("selectAdForCategory");
-        AdDAL instance = new AdDAL();
-        List<Category> result = instance.selectAdForCategory(200);
-        assertTrue(result != null);
     }
 
     /**
@@ -89,7 +99,7 @@ public class AdDALTest {
     public void testUpdate() {
         System.out.println("update");
         Date date = new Date(2018, 2, 8);
-        Ad ad = new Ad(200, "название", "описание", 1350, "city", date, null, 1,4);
+        Ad ad = new Ad(21, "название", "описание", 1350, "city", date, null, 1,4);
         AdDAL instance = new AdDAL();
         int expResult = 1;
         int result = instance.update(ad);
@@ -103,7 +113,7 @@ public class AdDALTest {
     public void testDelete() {
         System.out.println("delete");
         Date date = new Date(2018, 1, 6);
-        Ad ad = new Ad(200, "название", "описание", 1350, "city", date, null, 1,4);
+        Ad ad = new Ad(21, "название", "описание", 1350, "city", date, null, 1,4);
         AdDAL instance = new AdDAL();
         int expResult = 1;
         int result = instance.delete(ad);
