@@ -23,7 +23,7 @@ public class CategoryDAL extends BaseDAL {
     public List<Ad> selectAdForCategory(int id)
     {
         SqlSession session = sqlSessionFactory.openSession(); 
-        List<Ad> ads =  session.selectList("category.selectAdForCategory"); 
+        List<Ad> ads =  session.selectList("category.selectAdForCategory", id); 
         session.close(); 
         return ads;
     }

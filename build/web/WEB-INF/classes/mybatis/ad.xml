@@ -40,8 +40,8 @@
     </select>
   
     <select id="selectById" parameterType="int" resultMap="adResult">  
-        SELECT * FROM ad 
-        WHERE id = #{id}
+        SELECT *
+        FROM ad WHERE id = #{id}
     </select>
     
     <select id="selectAll"  resultMap="adResult">  

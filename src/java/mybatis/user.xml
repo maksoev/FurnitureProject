@@ -5,17 +5,23 @@
     
 <mapper namespace="user">
     <resultMap id="userResult" type ="model.User">
-        <result property="id" column="id" />
+        <id property="id" column="id" />
         <result property="name" column="name" />
         <result property="login" column="login" />
         <result property="password" column="password" />
         <result property="cellphone" column="cellphone" />
         <result property="email" column="email" />
         <result property="root" column="root" />
-        <collection property="ad" javaType="List" ofType="model.Ad" column="user_id" select="selectAdForUser"/>     
+        <collection property="ad" javaType="List" ofType="model.Ad" column="id" select="selectAd"/>   
     </resultMap>  
     
-    
+    <select id="selectAd" parameterType="int" resultMap="ad.adResult">  
+        select *, user.name as user_name,
+        user.id as user_id
+        from ad join user on user.id = ad.user_id
+        join category on category.id = ad.category_id
+        where user_id = #{id}
+    </select>
    
   
     <select id="selectById" parameterType="int" resultMap="userResult">  
@@ -26,7 +32,7 @@
         SELECT * FROM user 
     </select>
     
-     <select id="selectAdForUser" parameterType="int" resultMap="ad.adResult">  
+    <select id="selectAdForUser" parameterType="int" resultMap="ad.adResult">  
         SELECT *
         from ad
         WHERE ad.user_id = #{id}
@@ -37,8 +43,8 @@
     </delete> 
 
     <insert id = "insert" parameterType = "model.User"> 
-        INSERT INTO user (id, name ,login, password, cellphone, email, root) 
-        VALUES (#{id}, #{name}, #{login}, #{password}, #{cellphone}, #{email}, #{root});     
+        INSERT INTO user ( name ,login, password, cellphone, email, root) 
+        VALUES ( #{name}, #{login}, #{password}, #{cellphone}, #{email}, #{root});     
     </insert> 
 
     <update id = "update" parameterType = "model.User"> 

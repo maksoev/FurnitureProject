@@ -9,11 +9,13 @@ import java.awt.Image;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.Objects;
+
 /**
  *
  * @author user
  */
 public class Ad {
+
     private int id;
     private String name;
     private String description;
@@ -21,17 +23,16 @@ public class Ad {
     private String city;
     private Date datepost;
     private byte[] image;
-    private int user_id;
-    private int category_id;
     private User user;
     private Category category;
-    
-    
+    private int user_id;
+    private int category_id;
+
     public Ad() {
-        
+
     }
 
-    public Ad(int id, String name, String description, int price, String city, Date datepost, byte[] image, int user_id, int category_id, User user, Category category) {
+    public Ad(int id, String name, String description, int price, String city, Date datepost, byte[] image) {
         this.id = id;
         this.name = name;
         this.description = description;
@@ -39,8 +40,16 @@ public class Ad {
         this.city = city;
         this.datepost = datepost;
         this.image = image;
-        this.user_id = user_id;
-        this.category_id = category_id;
+    }
+
+    public Ad(int id, String name, String description, int price, String city, Date datepost, byte[] image, User user, Category category) {
+        this.id = id;
+        this.name = name;
+        this.description = description;
+        this.price = price;
+        this.city = city;
+        this.datepost = datepost;
+        this.image = image;
         this.user = user;
         this.category = category;
     }
@@ -53,17 +62,6 @@ public class Ad {
         this.city = city;
         this.datepost = datepost;
         this.image = image;
-        this.user_id = user_id;
-        this.category_id = category_id;
-    }
-
-    public Ad(int id, String name, String description, int price, String city, Date datepost, int user_id, int category_id) {
-        this.id = id;
-        this.name = name;
-        this.description = description;
-        this.price = price;
-        this.city = city;
-        this.datepost = datepost;
         this.user_id = user_id;
         this.category_id = category_id;
     }
@@ -96,20 +94,20 @@ public class Ad {
         return image;
     }
 
-    public int getUser_id() {
-        return user_id;
-    }
-
-    public int getCategory_id() {
-        return category_id;
-    }
-
     public User getUser() {
         return user;
     }
 
     public Category getCategory() {
         return category;
+    }
+
+    public int getUser_id() {
+        return user_id;
+    }
+
+    public int getCategory_id() {
+        return category_id;
     }
 
     public void setId(int id) {
@@ -140,14 +138,6 @@ public class Ad {
         this.image = image;
     }
 
-    public void setUser_id(int user_id) {
-        this.user_id = user_id;
-    }
-
-    public void setCategory_id(int category_id) {
-        this.category_id = category_id;
-    }
-
     public void setUser(User user) {
         this.user = user;
     }
@@ -156,17 +146,21 @@ public class Ad {
         this.category = category;
     }
 
+    public void setUser_id(int user_id) {
+        this.user_id = user_id;
+    }
+
+    public void setCategory_id(int category_id) {
+        this.category_id = category_id;
+    }
+
     @Override
     public int hashCode() {
         int hash = 7;
-        hash = 23 * hash + this.id;
-        hash = 23 * hash + Objects.hashCode(this.name);
-        hash = 23 * hash + Objects.hashCode(this.description);
-        hash = 23 * hash + this.price;
-        hash = 23 * hash + Objects.hashCode(this.city);
-        hash = 23 * hash + Objects.hashCode(this.datepost);
-        hash = 23 * hash + this.user_id;
-        hash = 23 * hash + this.category_id;
+        hash = 41 * hash + this.id;
+        hash = 41 * hash + Objects.hashCode(this.name);
+        hash = 41 * hash + Objects.hashCode(this.description);
+        hash = 41 * hash + Objects.hashCode(this.user);
         return hash;
     }
 
@@ -185,15 +179,6 @@ public class Ad {
         if (this.id != other.id) {
             return false;
         }
-        if (this.price != other.price) {
-            return false;
-        }
-        if (this.user_id != other.user_id) {
-            return false;
-        }
-        if (this.category_id != other.category_id) {
-            return false;
-        }
         if (!Objects.equals(this.name, other.name)) {
             return false;
         }
@@ -206,7 +191,7 @@ public class Ad {
         if (!Objects.equals(this.datepost, other.datepost)) {
             return false;
         }
-        if (!Arrays.equals(this.image, other.image)) {
+        if (!Objects.equals(this.user, other.user)) {
             return false;
         }
         return true;
@@ -214,8 +199,6 @@ public class Ad {
 
     @Override
     public String toString() {
-        return "Ad{" + "id=" + id + ", name=" + name + ", description=" + description + ", price=" + price + ", city=" + city + ", datepost=" + datepost + ", image=" + image + ", user_id=" + user_id + ", category_id=" + category_id + ", user=" + user + ", category=" + category + '}';
+        return "Ad{" + "id=" + id + ", name=" + name + ", description=" + description + ", price=" + price + ", city=" + city + ", datepost=" + datepost + ", user=" + user + ", category=" + category + ", user_id=" + user_id + ", category_id=" + category_id + '}';
     }
-
-
 }

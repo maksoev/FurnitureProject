@@ -7,8 +7,16 @@
     <resultMap id="categoryResult" type ="model.Category">
         <id property="id" column="id" />
         <result property="name" column="name" />
-        <collection property="ad" javaType="List" ofType="model.Ad" column="category_id" select="selectAdForCategory"/>
+        <collection property="ad" javaType="List" ofType="model.Ad" column="id" select="selectAd"/>
     </resultMap>  
+    
+    <select id="selectAd" parameterType="int" resultMap="ad.adResult">  
+        select *, user.name as user_name,
+        user.id as user_id
+        from ad join category on category.id = ad.category_id
+        join user on user.id = ad.user_id
+        where category_id = #{id}
+   </select>
     
     <select id="selectAdForCategory" parameterType="int" resultMap="ad.adResult">  
         SELECT *

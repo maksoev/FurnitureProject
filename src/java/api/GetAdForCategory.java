@@ -31,8 +31,8 @@ public class GetAdForCategory extends HttpServlet {
         try (PrintWriter out = response.getWriter()) {
             CategoryController categoryController = new CategoryController();
             List<Ad> ad = categoryController.getAdForCategory(id);
-            String userJson = JsonAd.toJSON(ad);
-            out.println(userJson);
+            String categoryJson = JsonAd.toJSON(ad);
+            out.println(categoryJson);
         }
     }
 

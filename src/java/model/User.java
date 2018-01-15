@@ -5,6 +5,7 @@
  */
 package model;
 
+import java.util.List;
 import java.util.Objects;
 
 /**
@@ -19,8 +20,13 @@ public class User {
     private String cellphone;
     private String email;
     private String root;
+    private List<Ad> ad;
 
      public User() {
+    }
+
+    public User(List<Ad> ad) {
+        this.ad = ad;
     }
 
     public User(int id, String name, String login, String password, String cellphone, String email, String root) {
@@ -31,6 +37,23 @@ public class User {
         this.cellphone = cellphone;
         this.email = email;
         this.root = root;
+    }
+
+    public User(int id, String name, String login, String password, String cellphone, String email, String root, List<Ad> ad) {
+        this.id = id;
+        this.name = name;
+        this.login = login;
+        this.password = password;
+        this.cellphone = cellphone;
+        this.email = email;
+        this.root = root;
+        this.ad = ad;
+    }
+
+    public User(int id, String login, String password) {
+        this.id = id;
+        this.login = login;
+        this.password = password;
     }
     
 
@@ -63,6 +86,10 @@ public class User {
         return root;
     }
 
+    public List<Ad> getAd() {
+        return ad;
+    }
+
     public void setId(int id) {
         this.id = id;
     }
@@ -89,6 +116,10 @@ public class User {
 
     public void setRoot(String root) {
         this.root = root;
+    }
+
+    public void setAd(List<Ad> ad) {
+        this.ad = ad;
     }
 
     @Override
