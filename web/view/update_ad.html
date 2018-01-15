@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>Обновление Объявления</title>
+        <link href="../lib/css/bootstrap.min.css" rel="stylesheet">
+        <link href="../lib/css/style.css" rel="stylesheet">
+        <script src="../service/CategoryService.js"></script>
+        <script src="../controllers/CategoryController.js"></script>
+        <script src="../service/AdService.js"></script>
+        <script src="../controllers/AdController.js"></script>
+        <script src="../service/UserService.js"></script>
+        <script src="../controllers/UserController.js"></script>
+    </head>
+
+    <body>
+
+        <div class="navbar navbar-fixed-top navbar-inverse" role="navigation">
+            <div class="container">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                        <span class="sr-only">Объявления</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a class="navbar-brand" href="#">Объявления</a>
+                </div>
+                <div class="collapse navbar-collapse">
+                    <ul class="nav navbar-nav">
+                        <li><a href="/FurnitureProject/">Главная</a></li>
+                        <li><a href="/FurnitureProject/view/users_ad.html">Объявление пользователя</a></li>
+                        <li><a href="/FurnitureProject/view/insert_ad.html">Добавление объявления</a></li>
+                        <li><a href="/FurnitureProject/view/insert_user.html">Добавление пользователя</a></li>
+                        <li><a href="/FurnitureProject/view/update_user.html">Изменение пользователя</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="container">
+            <div class="container">
+                <div class="row row-offcanvas row-offcanvas-right">
+                    <div class="col-xs-12 col-sm-12 col-md-12">
+                        <form id="InputAdSubmit">
+                            <div class="form-group">
+                                <label for="InputAd">Введите название объявления</label>
+                                <input type="text" class="form-control" id="InputAd" placeholder="Название объявления">
+
+                                <label for="InputAdDescription">Введите описание объявления</label>
+                                <input type="text" class="form-control" id="InputAdDescription" placeholder="Описание объявления">
+
+                                <label for="InputAdPrice">Введите цену</label>
+                                <input type="number" class="form-control" id="InputAdPrice" placeholder="Цена">
+
+                                <label for="InputAdCity">Введите город</label>
+                                <input type="text" class="form-control" id="InputAdCity" placeholder="Город">
+
+                                <!--    <label for="InputAdImage">Добавить изображение</label>
+                                    <form name="InputAdSubmit" enctype="multipart/form-data" class="form-control" method="post" id="InputAdImage">
+                                    <input name="InputAdImage" type="file" class="form-control" id="InputAdImage" placeholder="Изображение">
+                                -->
+                                <label for="userList">Выберите пользователя</label>
+                                <select id="userList" class="form-control">
+
+                                </select>
+                                <label for="categoryList">Выберите категорию</label>
+                                <select id="categoryList" class="form-control">
+                                </select>
+
+                            </div>
+                            <button type="button" class="btn btn-default" id="deleteAd">Удалить</button>
+                            <button type="submit" class="btn btn-default" id="submitAd">Изменить</button>
+                        </form>
+
+                    </div>
+                </div>
+            </div>
+
+            <footer>
+                <p>&copy; OmSTU 2018</p>
+            </footer>
+        </div>
+        <script src="../lib/js/jquery.min.js"></script>
+        <script src="../lib/js/bootstrap.min.js"></script>
+
+        <script>
+            $(window).load(function () {
+                var url = new URL(document.location.href);
+                var id = url.searchParams.get("id");
+                var adController = new AdController();
+                adController.getShortAdByIdView(id);
+
+
+                var categoryController = new CategoryController();
+                var categoryCount = categoryController.getAllCategoryViewListGroupListBox();
+                var userController = new UserController();
+                var userCount = userController.getAllUserViewListGroupListBox();
+
+                $("#InputAdSubmit").submit(function (event) {
+                    event.preventDefault();
+                    var ad = {
+                        id: id,
+                        name: $("#InputAd").val(),
+                        description: $("#InputAdDescription").val(),
+                        datepost: Date.now(),
+                        price: $("#InputAdPrice").val(),
+                        city: $("#InputAdCity").val(),
+                        //image: $("#InputAdImage").base64,
+                        user_id: $("#InputAdUser:checked").val(),
+                        category_id: $("#InputAdCategory:checked").val()
+                    };
+
+                    $.ajax({
+                        url: "/FurnitureProject/UpdateAd",
+                        type: "POST",
+                        dataType: "JSON",
+                        data: {
+                            json: JSON.stringify(ad)
+                        },
+                        success: function (data) {
+                            console.log(data);
+                            alert("Объявление успешно изменено!");
+
+                        },
+                        error: function () {
+                            console.log("error");
+                        }
+                    });
+
+
+                });
+                $("#deleteAd").click(function () {
+                    var ad = {
+                        id: id
+                    };
+                    $.ajax({
+                        url: "/FurnitureProject/DeleteAd",
+                        type: "POST",
+                        dataType: "JSON",
+                        data: {
+                            json: JSON.stringify(ad)
+                        },
+                        success: function (data) {
+                            alert("Объявление успешно удалено!");
+                            document.location.href = "/FurnitureProject/";
+                        },
+                        error: function () {
+                            console.log("error");
+                        }
+                    });
+                });
+            });
+        </script>    
+    </body>
+</html>

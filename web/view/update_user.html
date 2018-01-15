@@ -1,0 +1,189 @@
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>Изменить пользователя</title>
+        <link href="../lib/css/bootstrap.min.css" rel="stylesheet">
+        <link href="../lib/css/style.css" rel="stylesheet">
+
+    </head>
+    <body>  
+
+        <div class="navbar navbar-fixed-top navbar-inverse" role="navigation">
+            <div class="container">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                        <span class="sr-only">Объявления</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a class="navbar-brand" href="#">Объявления</a>
+                </div>
+                <div class="collapse navbar-collapse">
+                    <ul class="nav navbar-nav">
+                        <li><a href="/FurnitureProject/">Главная</a></li>
+                        <li><a href="/FurnitureProject/view/users_ad.html">Объявление пользователя</a></li>
+                        <li><a href="/FurnitureProject/view/insert_ad.html">Добавление объявления</a></li>
+                        <li><a href="/FurnitureProject/view/insert_user.html">Добавление пользователя</a></li>
+                        <li><a class="active" href="/FurnitureProject/view/update_user.html">Изменение пользователя</a></li>     
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <br>
+        <div class="container">
+            <div class="row row-offcanvas row-offcanvas-right">
+                <div class="col-xs-12 col-sm-12 col-md-12">
+                    <h4>Выберите пользователя: </h4>
+                    <div id="users">
+                    </div>
+                </div>
+
+
+                <div class="col-xs-12 col-sm-12 col-md-12">
+                    <br>
+                    <form id="userForm" data-userId="">
+                        <div class="form-group">
+                            <label for="name">Введите имя пользователя</label>
+                            <input type="text" class="form-control" id="name" placeholder="Имя">
+                            <label for="login">Введите логин пользователя</label>
+                            <input type="text" class="form-control" id="login" placeholder="Логин">
+                            <label for="password">Введите пароль пользователя</label>
+                            <input type="password" class="form-control" id="password" placeholder="Пароль">
+                            <label for="cellphone">Введите номер телефона пользователя</label>
+                            <input type="number"  class="form-control" id="cellphone" placeholder="Номер Телефона">
+                            <label for="email">Введите email пользователя</label>
+                            <input type="text" class="form-control" id="email" placeholder="Email">
+                            <label for="root">Введите права пользователя(admin & user) </label>
+                            <input type="text" class="form-control" id="root" placeholder="Права">
+                        </div>
+                        <button type="button" class="btn btn-default" id="deleteUser">Удалить</button>
+                        <button type="submit" class="btn btn-default" id="submitUser">Изменить</button>
+                    </form>
+
+                </div>
+            </div>
+
+            <hr>
+            <footer>
+                <p>&copy; OmSTU 2018</p>
+            </footer>
+        </div>
+        <script src="../lib/js/jquery.min.js"></script>
+        <script src="../lib/js/bootstrap.min.js"></script>
+        <script>
+            function getAllUser() {
+                var request = new XMLHttpRequest();
+                request.open('GET', '/FurnitureProject/GetAllUser', false);
+                request.send();
+                if (request.status === 200)
+                {
+                    var listUser = JSON.parse(request.responseText);
+                    return listUser;
+                }
+                return null;
+            }
+
+            function userClicked(userId, name, login, password, cellphone, email, root) {
+                $("#userForm").attr("data-userId", userId);
+                $("#name").val(name.toString());
+                $("#login").val(login.toString());
+                $("#password").val(password.toString());
+                $("#cellphone").val(cellphone.toString());
+                $("#email").val(email.toString());
+                $("#root").val(root.toString());
+            }
+
+            (function () {
+
+                let users = getAllUser();
+                let userId = 0;
+                let name = "";
+                let login = "";
+                let password = "";
+                let cellphone = "";
+                let email = "";
+                let root = "";
+
+
+                var element = document.getElementById("users");
+                var html = "";
+                for (var i = 0; i < users.length; i++) {
+                    userId = users[i].id;
+                    name = users[i].name;
+                    login = users[i].login;
+                    password = users[i].password;
+                    cellphone = users[i].cellphone;
+                    email = users[i].email;
+                    root = users[i].root;
+                    html += `<a onclick ="userClicked(${userId},'${name}', '${login}', '${password}', '${cellphone}', '${email}', '${root}')" class='list-group-item'> ${users[i].id}: ${users[i].name}</a>`;
+
+                }
+                element.innerHTML = html;
+                console.log(users.length);
+
+
+                $("#userForm").submit(function (event) {
+                    event.preventDefault();
+                    var user = {
+                        id: $("#userForm").attr("data-userId"),
+                        name: $("#name").val(),
+                        login: $("#login").val(),
+                        password: $("#password").val(),
+                        cellphone: $("#cellphone").val(),
+                        email: $("#email").val(),
+                        root: $("#root").val()
+                    };
+                    $.ajax({
+                        url: "/FurnitureProject/UpdateUser",
+                        type: "POST",
+                        dataType: "JSON",
+                        data: {
+                            json: JSON.stringify(user)
+                        },
+                        success: function (data) {
+                            alert("Пользователь успешно изменен!");
+                        },
+                        error: function () {
+                            console.log("error");
+                        }
+                    });
+                });
+
+
+                $("#deleteUser").click(function () {
+                    var user = {
+                        id: $("#userForm").attr("data-userId"),
+                        name: $("#name").val(),
+                        login: $("#login").val(),
+                        password: $("#password").val(),
+                        cellphone: $("#cellphone").val(),
+                        email: $("#email").val(),
+                        root: $("#root").val()
+                    };
+                    $.ajax({
+                        url: "/FurnitureProject/DeleteUser",
+                        type: "POST",
+                        dataType: "JSON",
+                        data: {
+                            json: JSON.stringify(user)
+                        },
+                        success: function (data) {
+                            alert("Пользователь успешно удален!");
+                            location.reload();
+                        },
+                        error: function () {
+                            console.log("error");
+                        }
+                    });
+                });
+            }
+            )();
+
+        </script>
+
+    </body>
+</html>
